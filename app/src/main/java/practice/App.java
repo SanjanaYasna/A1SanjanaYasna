@@ -15,7 +15,7 @@ public class App {
 
     public void catsVsDogsAsk(String animal){
         this.animal = animal;
-    }
+    } 
     public String getAnimal(){
         return animal;
     }
