@@ -1,7 +1,6 @@
 package practice; 
 import java.io.*;
 import java.util.Scanner;
-
 import org.checkerframework.checker.units.qual.s;
 
 import java.util.Arrays;
@@ -43,24 +42,21 @@ public class ClimateQueries {
 
           //dates
           String date = fields[2] + fields[0] + fields[1];
-          //if (date.length() < 6) System.out.println(date); dates passed!
+          //if (date.length() < 8) System.out.println(date); dates valid, arguments for each
           
           //set temp values to temperatures array
           float temperature = Float.valueOf(fields[3]);
           temperatures[count] = temperature; 
 
-
           //set date values in correspDates array
           correspDates[count] = date;
-          
 
           count++; //increment 
         }
-        float[] arr = {1.0f, -9999.0f, 3.0f, 2.0f};
-        String[] str = {"20230101","20230214","20230704"};
-        boolean[] arr1 = {false, true, true, false};
-        boolean[] arr2 = {false, true, false, true};
-        System.out.println(Arrays.toString(queries.logicalAnd(arr1, arr2)));
+
+        //System.out.println(Arrays.toString(queries.datesBetween(ClimateQueries.correspDates, "20100101","20170101")));
+        System.out.println(correspDates[0]);
+        System.out.println(correspDates[3566]);
         file.close();
       }
       public static boolean[] isEqualTo(float[] arr, float comparison){
@@ -127,17 +123,18 @@ public class ClimateQueries {
       else return sum/trueCount;
     }
 
-    public static boolean[] datesBetween(String[] arr, String begin, String end){
+    public static boolean[] datesBetween(String[] arr, String begin, String end)throws Exception{
         boolean[] res = new boolean[arr.length];
         int count = 0;
+        if (begin.length() != 8 || end.length() != 8){
+          throw new IllegalArgumentException();
+        }
         for (String i : arr){
             if (Integer.valueOf(begin) < Integer.valueOf(i) && Integer.valueOf(end) > Integer.valueOf(i)) {
                 res[count] = true;
-                count++;
             }
-            else {
-                res[count] = false;
-                count++; }
+            else res[count] = false;
+            count++; 
     }
         return res;
 
@@ -149,7 +146,7 @@ public class ClimateQueries {
         }
         boolean[] res = new boolean[arr1.length];
         for (int count = 0; count < arr1.length; count++){
-            if (arr1[count] == arr2[count] && arr1[count] == true){
+            if (arr1[count] == arr2[count] == true){
                 res[count] = true;
             }
             else res[count] = false;
@@ -158,5 +155,13 @@ public class ClimateQueries {
 
     }
 
+    //perhaps create a find last true method as well?
+
+    //so take first index, substring of first 4, int of, add one to that, make that dates between range
+    //dates between
+    //then mean (could do over entire range, or perhaps just over specific range by using get indices from find first)
+    //try this for each of hte iterations until you get to the last part
+    //number of overall iterations: 2010-1995+1 (since you have a  bit of 2010 that extends beyond first day)
+ 
 
 }
