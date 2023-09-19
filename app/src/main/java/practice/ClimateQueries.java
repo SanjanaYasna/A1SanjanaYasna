@@ -113,6 +113,8 @@ public class ClimateQueries {
       if (arr.length != includeOrNot.length){
         throw new InputMismatchException();
       }
+      if (lo > hi) throw new IndexOutOfBoundsException();
+      if (lo == hi) return Float.NaN;
       int trueCount = 0; //number of elemnts that are to be counted
       int sum = 0;
       for (int i = lo; i <hi; i++ ){
@@ -121,8 +123,8 @@ public class ClimateQueries {
           trueCount ++;
         }
       }
-
-      return sum/trueCount;
+      if (sum == 0) return 0f; //avoid divide by zero error
+      else return sum/trueCount;
     }
 
     public static boolean[] datesBetween(String[] arr, String begin, String end){

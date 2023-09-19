@@ -2,6 +2,7 @@ package practice;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import java.util.Arrays;
+import java.util.InputMismatchException;
 public class ClimateQueriesTest {
     @Test
     public void isEqualToTest(){
@@ -29,5 +30,22 @@ public class ClimateQueriesTest {
         assertArrayEquals(output2, queries.logicalNot(input2));
     }
 
+    @Test
+    public void meanTest() throws Exception{
+        ClimateQueries queries = new ClimateQueries();
+        boolean[] inputR = {true, false, true, true}; //as in right input, left input
+        float[] inputL = {1.0f, -9999.0f, 3.0f, 2.0f};
+        float[] badinputL = {1.0f, 0f, -9999.0f, 3.0f, 2.0f};
+        assertEquals(2.0, queries.mean(inputL, inputR, 0, 4), 0.01);
+        Throwable exception0 = assertThrows(IndexOutOfBoundsException.class, ()->{queries.mean(inputL, inputR, 1, 5);});
+        Throwable exception1 = assertThrows(InputMismatchException.class, ()->{queries.mean(badinputL, inputR, 0 ,4);});
+        boolean[] inputR1 = {true, false, false, true, true};
+        float[] inputL1 = {1.0f, -9999.0f, 3.0f, 2.0f, 18f};
+        assertEquals(1f, queries.mean(inputL1, inputR1, 0, 2), 0.01);
+        assertEquals(0, queries.mean(inputL1, inputR1, 1,2), 0.01);
+    }
+
     
+
+
 }
