@@ -9,7 +9,7 @@ public class ArrayMethods{
     }
     public static float sum(float[] temps, int lo, int hi){
         float sum = 0;
-        if (lo == hi) return temps[lo];
+        if (lo == hi) return 0f;
         for (int i = lo; i < hi; i++){
             sum += temps[i];
         }
@@ -21,22 +21,41 @@ public class ArrayMethods{
     }
 
     public static float mean(float[] temps){
+        if (temps.length == 0){
+            return 0f;
+        }
         return (wholeSum(temps)/temps.length);
     }
 
+    //it doesn't automatically throw out of bounds exception for invalid ranges, rather it skips over invalid loop and outputs -0.0f
+    //maybe it's a java 20 thing
+    public static float mean(float[] temps, int lo, int hi) throws Exception{
+        if (lo > hi) throw new IndexOutOfBoundsException();
+        float sum = 0;
+        if (lo == hi) return 0f;
+        for (int i = lo; i < hi; i++){
+            sum += temps[i];
+        }
+        return sum/(hi-lo);
+    }
+//assuming NaN is essentailly skipped over...
     public static float min(float[] temps, int start, int end) throws Exception{
         float min = Float.MIN_VALUE;
         if (end < start){ 
-            throw new Exception("Index outta bounds"); //maybe do this with junit testing, tho iwll have to speak about if we should configure this ourselves
-        }
-        if (Math.abs(end - start) <= 1){ //if end and start same point or right next to each other, it would return the start/lo index
-            //i assume they can technically point to the same index? or would this need an error message?
-            return temps[start];
+            throw new IndexOutOfBoundsException(); }
+        if (start == end){
+            return Float.NaN;
         }
         int i = start;
         int j = end -1;
         while (i != j){
-            if (temps[i] < temps[j]){
+            if (Float.isNaN(temps[i])){
+                i++;
+            }
+            else if (Float.isNaN(temps[j])){
+                j--;
+            }
+            else if (temps[i] < temps[j]){
                 min = temps[i];
                 j--;
             }
@@ -59,11 +78,10 @@ public class ArrayMethods{
     public static float max(float[] temps, int start, int end) throws Exception{
         float max = Float.MIN_VALUE;
         if (end < start){
-            throw new Exception("Index outta bounds"); //maybe do this with junit testing, tho iwll have to speak about if we should configure this ourselves
+            throw new IndexOutOfBoundsException(); //maybe do this with junit testing, tho iwll have to speak about if we should configure this ourselves
         }
-        if (Math.abs(end - start) <= 1){ //if end and start same point or right next to each other, it would return the start/lo index
-            //i assume they can technically point to the same index? or would this need an error message?
-            return temps[start];
+        if (start == end){
+            return Float.NaN;
         }
         int i = start;
         int j = end -1;
