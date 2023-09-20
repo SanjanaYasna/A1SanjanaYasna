@@ -15,7 +15,7 @@ public class ReadFile {
     } catch (FileNotFoundException e) {
       System.err.println("Cannot locate file.");
       System.exit(-1);
-    }
+    } 
     int count = 0;
     while (file.hasNextLine()) {
       String line = file.nextLine();
