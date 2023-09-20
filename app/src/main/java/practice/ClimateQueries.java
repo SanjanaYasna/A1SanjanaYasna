@@ -1,11 +1,12 @@
 package practice; 
 import java.io.*;
 import java.util.Scanner;
-import org.checkerframework.checker.units.qual.s;
 
 import java.util.Arrays;
 import java.util.InputMismatchException;
 //-99 is a null value. ODn't include it in min calculations
+
+//NOTE: the variable "res" means resulting array
 public class ClimateQueries {
     public static float[] temperatures = new float[3567];
     public static String[] correspDates = new String[3567];
@@ -13,7 +14,6 @@ public class ClimateQueries {
     public static void main(String[] args) throws Exception{
         String filename = (args.length > 0) ? args[0] : "app/src/main/java/practice/Dhaka.txt/"; //Dhaka.txt";
         Scanner file = null;
-        ArrayMethods queries = new ArrayMethods();
 
         try {
           file = new Scanner(new File(filename));
@@ -53,11 +53,18 @@ public class ClimateQueries {
 
           count++; //increment 
         }
-
+//Some testsss
         //System.out.println(Arrays.toString(queries.datesBetween(ClimateQueries.correspDates, "20100101","20170101")));
-        System.out.println(correspDates[0]);
-        System.out.println(correspDates[3566]);
+       // System.out.println(correspDates[0]);
+        //System.out.println(correspDates[3566]);
         file.close();
+
+
+
+
+
+
+
       }
       public static boolean[] isEqualTo(float[] arr, float comparison){
         boolean[] res = new boolean[arr.length];
@@ -130,7 +137,7 @@ public class ClimateQueries {
           throw new IllegalArgumentException();
         }
         for (String i : arr){
-            if (Integer.valueOf(begin) < Integer.valueOf(i) && Integer.valueOf(end) > Integer.valueOf(i)) {
+            if (Integer.valueOf(i) >= Integer.valueOf(begin) && Integer.valueOf(end) >= Integer.valueOf(i)) {
                 res[count] = true;
             }
             else res[count] = false;
@@ -146,7 +153,7 @@ public class ClimateQueries {
         }
         boolean[] res = new boolean[arr1.length];
         for (int count = 0; count < arr1.length; count++){
-            if (arr1[count] == arr2[count] == true){
+            if (arr1[count] == true && arr2[count] == true){
                 res[count] = true;
             }
             else res[count] = false;
@@ -154,6 +161,40 @@ public class ClimateQueries {
         return res;
 
     }
+
+    public static int count(boolean[] arr){
+      int count = 0;
+      for (boolean i : arr){
+        if (i ==true) count++;
+      }
+      return count;
+    }
+
+    public static int findFirst(boolean[] arr){
+      for (int i = 0; i < arr.length; i++){
+        if (arr[i] == true){
+          return i;
+        }
+      }
+      return -1;
+    }
+
+    public static int[] find(boolean[] arr){
+      int arrSize = count(arr);
+      int[] res = new int[arrSize];
+      int resIndex = 0;
+      for (int i = 0; i<arr.length; i++){
+        if (arr[i] == true){
+          res[resIndex] = i;
+          resIndex++;
+        }
+      }
+      return res;
+    }
+
+
+    
+
 
     //perhaps create a find last true method as well?
 
