@@ -22,7 +22,7 @@ public class ClimateQueries {
     public static float[] temperatures = new float[3567];
     public static String[] correspDates = new String[3567];
     public static float[] averageDailyTemperaturePerYear = new float[16];
-    public static String[] firstDaysToSurpassAnnualAvgTempofFirstYear = new String[16];
+    public static String[] firstDaysToSurpassAnnualAvgTempofFirstYear = new String[16]; //shown as nth day of the year (day 1 is 1, day 365 is 365)
     public static boolean[] daysTemperatureOver30;
     static int count = 0;
     public static void main(String[] args) throws Exception{
