@@ -23,5 +23,5 @@ JUnit tests ClimateQueries.java methods
 
 # Reflection: 
 Mucho trabajo, poco tiempo
-The JUnit testing was annoying and reptitive, but it was good practice to learn how to check for certain thrown exceptions. <br>
-It was really enjoyable to analyze Yuma.txt and Dhaka.txt in order to reach conclusions-it was like a puzzle to put together the different methods to find the needed information. <br>
+The JUnit testing was annoying and reptitive, but it was good practice to learn how to check for certain thrown exceptions. I want to learn more JUnit testing functions so that I get to the point where I can see the true utiliy of JUnit testing and test what I can't easily test from a main method.<br>
+It was really enjoyable to analyze Yuma.txt and Dhaka.txt in order to reach the requested conclusions-it was like a puzzle to put together the different methods to find the needed information. Next assignment, I would like to try the graphical analyses parts. I had to hold off doing the SVG part of this assignment, but it would've been cool if I could allocate such time. <br>
