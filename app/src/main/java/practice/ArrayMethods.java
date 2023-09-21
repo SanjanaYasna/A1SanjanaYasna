@@ -1,4 +1,9 @@
+/*Contains essentail array methods (wholeSum, sum, mean, min, max, isGreaterThan, lowest, and highest) 
+Such methods are used in ClimateQueries.java to analyze the Dhaka.txt file, and ReadFile.java to analyze  the YUMA.txt file
+*/
 package practice;
+import java.util.*;
+
 public class ArrayMethods{
     public static float wholeSum(float[] temps){
         float sum = 0;
@@ -138,40 +143,93 @@ public class ArrayMethods{
 
     }
 
-    public static boolean[] datesBetween(String[] arr, String begin, String end){
-        boolean[] res = new boolean[arr.length];
-        int count = 0;
-        for (String i : arr){
-            if (Integer.valueOf(begin) < Integer.valueOf(i) && Integer.valueOf(end) > Integer.valueOf(i)) {
-                res[count] = true;
-                count++;
-            }
-            else {
-                res[count] = false;
-                count++; }
-    }
-        return res;
-
-    }
-
-    public static boolean[] logicalAnd(boolean[] arr1, boolean[] arr2) throws Exception{
-        if (arr1.length != arr2.length){
-            throw new Exception("Can't compare apples to oranges");
-        }
-        boolean[] res = new boolean[arr1.length];
-        for (int count = 0; count < arr1.length; count++){
-            if (arr1[count] == arr2[count] && arr1[count] == true){
-                res[count] = true;
-            }
-            else res[count] = false;
-        }
-        return res;
-
-    }
 
     //attempt stretch iwth bubble sort or heaps... (i assume we can't just use built-in sort method and call it a day)
     
+    public static float[] lowest(float[] arr, int lo, int hi, int numOfElements) throws Exception{
+        if (lo >= hi) throw new IndexOutOfBoundsException(); 
+        float[] res = new float[numOfElements];
+        PriorityQueue<Float> maxHeap = new PriorityQueue<Float>(Collections.reverseOrder());
+        for (int i = lo; i < hi; i ++){
+            maxHeap.add(arr[i]);
+            //need to keep maxHeap to size we want, numOfElements:
+            if (maxHeap.size() > numOfElements) maxHeap.poll();
+        }
+        int iterator = 0;
+        while (!maxHeap.isEmpty()){
+            res[iterator] = maxHeap.poll();
+            iterator++;
+        }
+        //if numOfElements is higher than the available elements, fill rest with NaN
+        while (iterator < numOfElements){
+            res[iterator] = Float.NaN;
+            iterator++;
+        }
+        return res;
+    }
 
+    public static float[] lowest(float[] arr, int numOfElements) throws Exception{
+        float[] res = new float[numOfElements];
+        PriorityQueue<Float> maxHeap = new PriorityQueue<Float>(Collections.reverseOrder());
+        for (int i = 0; i < arr.length; i ++){
+            maxHeap.add(arr[i]);
+            //need to keep maxHeap to size we want, numOfElements:
+            if (maxHeap.size() > numOfElements) maxHeap.poll();
+        }
+        int iterator = 0;
+        while (!maxHeap.isEmpty()){
+            res[iterator] = maxHeap.poll();
+            iterator++;
+        }
+        while (iterator < numOfElements){
+            res[iterator] = Float.NaN;
+            iterator++;
+        }
+        return res;
+    }
+
+//copy-paste, no reverse order for minHeap
+    public static float[] highest(float[] arr, int lo, int hi, int numOfElements) throws Exception{
+        if (lo >= hi) throw new IndexOutOfBoundsException(); 
+        float[] res = new float[numOfElements];
+        PriorityQueue<Float> maxHeap = new PriorityQueue<Float>();
+        for (int i = lo; i < hi; i ++){
+            maxHeap.add(arr[i]);
+            //need to keep maxHeap to size we want, numOfElements:
+            if (maxHeap.size() > numOfElements) maxHeap.poll();
+        }
+        int iterator = 0;
+        while (!maxHeap.isEmpty()){
+            res[iterator] = maxHeap.poll();
+            iterator++;
+        }
+        //if numOfElements is higher than the available elements, fill rest with NaN
+        while (iterator < numOfElements){
+            res[iterator] = Float.NaN;
+            iterator++;
+        }
+        return res;
+    }
+
+    public static float[] highest(float[] arr, int numOfElements){
+        float[] res = new float[numOfElements];
+        PriorityQueue<Float> maxHeap = new PriorityQueue<Float>();
+        for (int i = 0; i < arr.length; i ++){
+            maxHeap.add(arr[i]);
+            //need to keep maxHeap to size we want, numOfElements:
+            if (maxHeap.size() > numOfElements) maxHeap.poll();
+        }
+        int iterator = 0;
+        while (!maxHeap.isEmpty()){
+            res[iterator] = maxHeap.poll();
+            iterator++;
+        }
+        while (iterator < numOfElements){
+            res[iterator] = Float.NaN;
+            iterator++;
+        }
+        return res;
+    }
 
 
 

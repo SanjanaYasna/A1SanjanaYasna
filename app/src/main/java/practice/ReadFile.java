@@ -1,3 +1,12 @@
+/*Uses methods from ClimateQueries and ArrayMethods classes in order to analyze YUMA.txt file
+ * Prints out output along the follwoing format (with different answers, since Dr. Howe made up the numbers):
+Source file: YUMA_2023.txt
+Annual mean temperature: 25.6 degrees Celsius
+Minimum average daily temperature: -2.7 degrees Celsius
+Maximum average daily temperature: 37.4 degrees Celsius
+Mean temperature in January: 8.4 degrees Celsius
+Mean temperature in July: 29.8 degrees Celsius
+ */
 package practice;
 import java.io.*;
 import java.util.Scanner;
@@ -57,7 +66,7 @@ Mean temperature in July: 29.8 degrees Celsius*/
 
 
     //NOTE: FIGURE OUT WHY HERE DATESBETWEEN IS MIRACULOUSLY EXCLUSIVE...
-    boolean[] rightDates = ArrayMethods.datesBetween(correspDates, "20221231", "20230201");
+    boolean[] rightDates = ClimateQueries.datesBetween(correspDates, "20221231", "20230201");
     //find first index to take the mean of (inclusive)
     int startIndex = ClimateQueries.findFirst(rightDates);
     //get second index where january dates end...
@@ -66,7 +75,7 @@ Mean temperature in July: 29.8 degrees Celsius*/
     System.out.println("Mean temperature in January: " + Math.round(ArrayMethods.mean(temperatures, startIndex, endIndex)*10 )/10.0 ) ;
 
     //rinse and repeat
-    rightDates = ArrayMethods.datesBetween(correspDates, "20230631", "20230801");
+    rightDates = ClimateQueries.datesBetween(correspDates, "20230631", "20230801");
     startIndex = ClimateQueries.findFirst(rightDates);
     //since the range isn't right at hte beginnng, can't use logial not and find first again
     //what we can do is use find and return the last index of find

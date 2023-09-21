@@ -1,7 +1,20 @@
+/* This file includes:
+ClimateQueries methods (isEqualTo,isGreaterThan, LogicalNot, LogicalAnd, datesBetween, count,findFirst, find)
+Such methods below are tested in CilmateQueriesTest.java
+
+Arrays for corresponding temepratures, dates, and one array for each of hte following pieces of info from Dhaka.txt:
+The average daily temperature over the full year - averageDailyTemperaturePerYear
+The first day in each year with an average temperature that exceeds the annual average from the first year of data -firstDaysToSurpassAnnualAvgTempofFirstYear
+The number of days with temperatures over 30 degrees - daysTemperatureOver30
+
+Prints average daily temperatures between years and first day to surpass average temperature in first year
+Also does the analysis of such metrics above between teh two halves, and prints out the analysis results
+ */
 package practice; 
 import java.io.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
-import java.util.Arrays;
 import java.util.InputMismatchException;
 //-99 is a null value. It isn't included in the array of temperatures/isn't used in calculations, as instructed
 //NOTE: the variable name "res" means resulting array
@@ -60,7 +73,7 @@ public class ClimateQueries {
         } catch (FileNotFoundException e) {
           System.err.println("Cannot locate file.");
           System.exit(-1);
-        } //so set the temperatures,.... arrays
+        } 
         
 
     //so take first index, substring of first 4, int of, add one to that, make that dates between range
@@ -74,7 +87,7 @@ public class ClimateQueries {
         for (int year = firstYear; year <=lastYear; year++){
           //System.out.println(year); yep got the years
           //now get the dates for that year based on boolean
-          boolean[] datesForSpecificYear = ArrayMethods.datesBetween(correspDates, year+"0100", (year+1)+"0101");
+          boolean[] datesForSpecificYear = ClimateQueries.datesBetween(correspDates, year+"0100", (year+1)+"0101");
           int[] indicesToCount = ClimateQueries.find(datesForSpecificYear);
           int startIndex = indicesToCount[0];
           int endIndex = indicesToCount[indicesToCount.length -1];
@@ -99,14 +112,45 @@ public class ClimateQueries {
         }
         //Now find number of days with temperatures over 30 degrees
         //first which days have temperatures over 30
-        daysTemperatureOver30 = ClimateQueries.isGreaterThan(temperatures, 30f);
-        System.out.println("Total number of days with temperatures over 30C: " + ClimateQueries.count(daysTemperatureOver30));
+        daysTemperatureOver30 = ClimateQueries.isGreaterThan(temperatures, 86f);
+        System.out.println("Total number of days with temperatures over 30C/86F: " + ClimateQueries.count(daysTemperatureOver30));
         //dhaka is a very hot place?
 
+
         //Now divide these values into two halves, 1995-2002, and 2003-2010
+        //so average daily temperature from 1995-2002:
+        float averageFirstHalf = Math.round(ArrayMethods.mean(averageDailyTemperaturePerYear, 0, 8)*100f) /100f;
+        System.out.println("Average daily temperature from 1995-2002 was " + averageFirstHalf + "C");
+        //2003-2010
+        float averageSecondHalf = Math.round(ArrayMethods.mean(averageDailyTemperaturePerYear, 8, 16)*100f) /100f;
+        System.out.println("Average daily temperature from 2003-2010 was " + averageSecondHalf + "C");
         
+        //now day of the year averages
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyMMdd");
+        //Now first half:
+        int sum = 0;
+        for (int i = 0; i < 8; i ++){
+          sum += LocalDate.parse(firstDaysToSurpassAnnualAvgTempofFirstYear[i], fmt).getDayOfYear();
+        }
+        int avg = Math.round(sum /8);
+        System.out.println("The average first nth day of year to surpass first year's average temperature (74.9C) from first half of data (roughly 1995-2002) is " + avg);
+
+        //Now rinse and repeat for second half:
+        int sum2 = 0;
+        for (int i = 8; i < 16; i ++){
+          sum2 += LocalDate.parse(firstDaysToSurpassAnnualAvgTempofFirstYear[i], fmt).getDayOfYear();
+        }
+        int avg2 = Math.round(sum2 /8);
+        System.out.println("The average first nth day of year to surpass first year's average temperature (74.9C) from second half of data (roughly 2003-2010) is " + avg2);
+        System.out.println("So the annual average temperature for the first year of the study is exceeded on average 5 days earlier in latter half of recordings as opposed to the first half");
 
 
+        //now temperatures over 30C in 1995-2002:
+        int numberOver30FirstHalf = ClimateQueries.count(daysTemperatureOver30, 0, 1783);
+        System.out.println("From the first half of data, the number of days with a temperature over 30C/86F is : "+ numberOver30FirstHalf);
+        //now second half
+        int numberOver30SecondHalf = ClimateQueries.count(daysTemperatureOver30, 1783, 3567);
+        System.out.println("From the second half of data, the number of days with a temperature over 30C/86F is : "+ numberOver30SecondHalf);
         System.out.println("Shout out to climate change for making this study possible");
 
         
@@ -213,6 +257,16 @@ public class ClimateQueries {
       int count = 0;
       for (boolean i : arr){
         if (i ==true) count++;
+      }
+      return count;
+    }
+
+    public static int count(boolean[] arr, int lo, int hi){
+      if (lo > hi) throw new IndexOutOfBoundsException();
+      if (lo == hi) return -1;
+      int count = 0;
+      for (int i = lo; i<hi; i++){
+        if (arr[i] == true) count ++;
       }
       return count;
     }

@@ -1,3 +1,4 @@
+/*Tests methods from ClimateQueries.java */
 package practice;
 import org.junit.Test;
 import static org.junit.Assert.*;

@@ -1,7 +1,8 @@
+/*Tests methods from ArrayMethods.java */
 package practice;
 import org.junit.Test;
 import static org.junit.Assert.*;
-
+import java.util.Arrays;
 public class ArrayMethodsTest{
     @Test 
     public void wholeSumWorks() throws Exception {
@@ -77,6 +78,50 @@ public class ArrayMethodsTest{
         assertEquals(3, res6, 0.01);
         float res7 = ArrayMethods.max(arrLastIWanttoDo, 0, 0);
         assertEquals(Float.NaN, res7, 0.01);
+        assertThrows(IndexOutOfBoundsException.class, ()->{ArrayMethods.lowest(arr1, 4, 0, 3);});
     }
-    
+    @Test
+    public void lowestWorks() throws Exception{
+        float[] arr = {1.0f, 2.0f, 3.0f, 4.0f};
+        float[] res = ArrayMethods.lowest(arr, 0, 4, 2);
+        float[] output = {2f, 1f};
+        assertArrayEquals(output, res, 0);
+        float[] arr1 = {2.0f, 3.0f, 2.0f, 3.0f};
+        float[] res1 = ArrayMethods.lowest(arr1, 0, 4, 3);
+        float[] output1 = {3f, 2f, 2f};
+        assertArrayEquals(output1, res1, 0);
+        float[] arr2 = {4.0f, 3.0f, 2.0f, 1.0f};
+        float[] output2 = {2.0f, 1f};
+        assertArrayEquals(output2, ArrayMethods.lowest(arr2, 2), 0);
+        float[] arr3 = {4.0f, 3.0f, 2.0f, 1.0f};
+        float[] output3 = {1f};
+        assertArrayEquals(output3, ArrayMethods.lowest(arr3, 1), 0);
+        float[] arr4 = {4.0f, 3.0f};
+        float[] output4 = {4f, 3f, Float.NaN};
+        assertArrayEquals(output4, ArrayMethods.lowest(arr4, 3), 0);
+        assertThrows(IndexOutOfBoundsException.class, ()->{ArrayMethods.lowest(arr1, 4, 4, 3);});
+    }
+    @Test
+    public void highestWorks() throws Exception{
+        float[] arr = {1.0f, 2.0f, 3.0f, 4.0f};
+        float[] res = ArrayMethods.highest(arr, 0, 4, 2);
+        float[] output = {3f, 4f};
+        assertArrayEquals(output, res, 0);
+        float[] arr1 = {2.0f, 3.0f, 2.0f, 3.0f};
+        float[] res1 = ArrayMethods.highest(arr1, 0, 4, 3);
+        float[] output1 = {2f, 3f, 3f};
+        System.out.println(Arrays.toString(res1));
+        assertArrayEquals(output1, res1, 0);
+        float[] arr2 = {4.0f, 3.0f};
+        float[] output2 = {4f};
+        assertArrayEquals(output2, ArrayMethods.highest(arr2, 1), 0);
+        float[] arr3 = {4.0f, 3.0f, 2.0f, 1.0f};
+        float[] output3 = {1f, 2f, 3f, 4f, Float.NaN};
+        assertArrayEquals(output3, ArrayMethods.highest(arr3, 5), 0);
+        float[] arr4 = {4.0f, 3.0f};
+        float[] output4 = {3f, 4f, Float.NaN};
+        assertArrayEquals(output4, ArrayMethods.highest(arr4, 3), 0);
+        assertThrows(IndexOutOfBoundsException.class, ()->{ArrayMethods.highest(arr1, 4, 0, 3);});
+        assertThrows(IndexOutOfBoundsException.class, ()->{ArrayMethods.highest(arr1, 4, 4, 3);});
+    }
 }
