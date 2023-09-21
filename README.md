@@ -7,12 +7,12 @@ Contains essentail array methods (wholeSum, sum, mean, min, max, isGreaterThan, 
 JUnit tests ArrayMethods.java methods
 
 ## ReadFile.java
-Uses methods from ClimateQueries and ArrayMethods classes in order to analyze YUMA.txt file
+Uses methods from ClimateQueries and ArrayMethods classes in order to analyze YUMA.txt file <br>
 Prints requested info for YUMA.txt
 
 ## ClimateQueries.java
-ClimateQueries methods (isEqualTo,isGreaterThan, LogicalNot, LogicalAnd, datesBetween, count,findFirst, find)
-Analyzes Dhaka.txt  file and stores requested information (annual temp averages, days over30C, first day to exceed first yr annual avg, etc) in arrays
+ClimateQueries methods (isEqualTo,isGreaterThan, LogicalNot, LogicalAnd, datesBetween, count,findFirst, find) <br>
+Analyzes Dhaka.txt  file and stores requested information (annual temp averages, days over30C, first day to exceed first yr annual avg, etc) in arrays <br>
 Prints out analyses and the results of hte first half vs second half comparison
 
 ## Dhaka.txt
@@ -23,5 +23,5 @@ JUnit tests ClimateQueries.java methods
 
 # Reflection: 
 Mucho trabajo, poco tiempo
-The JUnit testing was annoying and reptitive, but it was good practice to learn how to check for certain thrown exceptions.
-It was really enjoyable to analyze Yuma.txt and Dhaka.txt in order to reach conclusions-it was like a puzzle to put together the different methods to find the needed information.
+The JUnit testing was annoying and reptitive, but it was good practice to learn how to check for certain thrown exceptions. <br>
+It was really enjoyable to analyze Yuma.txt and Dhaka.txt in order to reach conclusions-it was like a puzzle to put together the different methods to find the needed information. <br>
