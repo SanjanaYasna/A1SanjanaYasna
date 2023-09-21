@@ -1,6 +1,5 @@
 Note: Temperatures are rounded to nearest tenth in calculations
-# Overview of what each major file does:<br>
-
+# Overview of what each major file does:
 ## ArrayMethods.java
 Contains essentail array methods (wholeSum, sum, mean, min, max, isGreaterThan, lowest, and highest) <br>
 
