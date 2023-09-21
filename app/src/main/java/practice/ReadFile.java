@@ -12,30 +12,31 @@ public class ReadFile {
     Scanner file = null;
     try {
       file = new Scanner(new File(filename));
+          int count = 0;
+      while (file.hasNextLine()) {
+        String line = file.nextLine();
+        String[] fields = line.split("\\s+");
+        if (Float.valueOf(fields[8]) == -9999.0f){
+          continue;
+        }
+        String date = fields[1];
+        float temperature = Float.valueOf(fields[8]);
+        temperatures[count] = temperature;
+        correspDates[count] = date;
+      // System.out.println("On " + date + " the temperature was " + temperature + " degrees Celsius.");
+        count++;
+      }
+      //System.out.println(count); //so  there are 224 entries that aren't null
+      /*System.out.println((temperatures[223]));
+      System.out.println((correspDates[223]));
+      Just making sure the arrays are fully filled */
+      file.close();
+      //System.out.println(Arrays.toString(temperatures));
     } catch (FileNotFoundException e) {
       System.err.println("Cannot locate file.");
       System.exit(-1);
     } 
-    int count = 0;
-    while (file.hasNextLine()) {
-      String line = file.nextLine();
-      String[] fields = line.split("\\s+");
-      if (Float.valueOf(fields[8]) == -9999.0f){
-        continue;
-      }
-      String date = fields[1];
-      float temperature = Float.valueOf(fields[8]);
-      temperatures[count] = temperature;
-      correspDates[count] = date;
-     // System.out.println("On " + date + " the temperature was " + temperature + " degrees Celsius.");
-      count++;
-    }
-    //System.out.println(count); //so  there are 224 entries that aren't null
-    /*System.out.println((temperatures[223]));
-    System.out.println((correspDates[223]));
-    Just making sure the arrays are fully filled */
-    file.close();
-    //System.out.println(Arrays.toString(temperatures));
+
 
 /*So here's the part where we get the output of (i mean, it doesn't relaly match...)
 Source file: YUMA_2023.txt
@@ -56,7 +57,7 @@ Mean temperature in July: 29.8 degrees Celsius*/
 
 
     //NOTE: FIGURE OUT WHY HERE DATESBETWEEN IS MIRACULOUSLY EXCLUSIVE...
-    boolean[] rightDates = ArrayMethods.datesBetween(correspDates, "20230100", "20230201");
+    boolean[] rightDates = ArrayMethods.datesBetween(correspDates, "20221231", "20230201");
     //find first index to take the mean of (inclusive)
     int startIndex = ClimateQueries.findFirst(rightDates);
     //get second index where january dates end...
@@ -72,8 +73,6 @@ Mean temperature in July: 29.8 degrees Celsius*/
     int[] indicesToCount = ClimateQueries.find(rightDates);
     endIndex = indicesToCount[indicesToCount.length -1] + 1;
     System.out.println("Mean temperature in July: " + Math.round(ArrayMethods.mean(temperatures, startIndex, endIndex)*10 )/10.0 ) ;
-
-
 
   }
 }

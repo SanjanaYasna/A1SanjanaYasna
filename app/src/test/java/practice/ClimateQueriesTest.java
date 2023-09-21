@@ -1,7 +1,7 @@
 package practice;
 import org.junit.Test;
 import static org.junit.Assert.*;
-//import java.util.Arrays;
+import java.util.Arrays;
 import java.util.InputMismatchException;
 public class ClimateQueriesTest {
     @Test
@@ -58,6 +58,7 @@ public class ClimateQueriesTest {
     public void datesBetweenTest() throws Exception{
         String[] input = {"20230201","20230214","20230704"};
         boolean[] output = {true, true, false};
+        System.out.println(Arrays.toString(ClimateQueries.datesBetween(input, "20230201", "20230601")));
         assertArrayEquals(output, ClimateQueries.datesBetween(input, "20230201", "20230601"));
         assertThrows(IllegalArgumentException.class, ()->{ClimateQueries.datesBetween(input, "202302010", "20230601");});
         assertThrows(IllegalArgumentException.class, ()->{ClimateQueries.datesBetween(input, "20230201", "2023060");});
