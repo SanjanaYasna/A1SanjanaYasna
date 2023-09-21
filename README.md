@@ -1,7 +1,8 @@
 Note: Temperatures are rounded to nearest tenth in calculations<br>
 #Overview of what each major file does:<br>
+<br>
 ##ArrayMethods.java
-Contains essentail array methods (wholeSum, sum, mean, min, max, isGreaterThan, lowest, and highest) 
+Contains essentail array methods (wholeSum, sum, mean, min, max, isGreaterThan, lowest, and highest) <br>
 
 ##ArrayMethodsTest.java
 JUnit tests ArrayMethods.java methods
